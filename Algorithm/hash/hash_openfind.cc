@@ -38,7 +38,7 @@
 //   return 0;
 // }
 
-
+/*
 // 开放寻址法(保证是不会产生冲突的)
 #include <iostream>
 #include <cstring>
@@ -79,5 +79,49 @@ int main(){
         printf("Yes\n");
     }
   }
+  return 0;
+}
+*/
+
+
+#include <iostream>
+#include <cstring>
+using namespace std;
+const int N = 200003; // 开放寻址法:数组大小开2 ~ 3倍
+const int MAX = 0x3f3f3f3f; // 稍微比10e9大一点
+int p[N];
+int n;
+
+int query(int x){
+  int k = (x % N + N) % N;
+  // 如果x存在,则找到插入它的位置,如果x不存在,那么返回它应该存在的位置
+  while(p[k] != x && p[k] != MAX){
+    k++;
+    if(k == N) k = 0;
+  }
+  return k;
+}
+
+int main(){
+  memset(p,0x3f,sizeof p);
+  char op[2];
+  scanf("%d",&n);
+
+  while(n--){
+    scanf("%s",op);
+    if(*op == 'I'){
+      int x;
+      scanf("%d",&x);
+      p[query(x)] = x;
+    }else{
+      int x;
+      scanf("%d",&x);
+      if(p[query(x)] == MAX)
+        printf("No\n");
+      else
+        printf("Yes\n");
+    }
+  }
+
   return 0;
 }
