@@ -13,7 +13,7 @@ string ends
  
 code segment
 start:
- 
+  ; 循环六次,每次显示一个数字
 	mov cx,6
 	mov ax,data
 	mov ds,ax
