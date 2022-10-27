@@ -40,7 +40,7 @@
 
 //   return 0;
 // }
-
+/*
 #include <iostream>
 using namespace std;
 typedef unsigned long long ULL;
@@ -69,6 +69,44 @@ int main(){
     scanf("%d%d%d%d",&l1,&r1,&l2,&r2);
     if(get(l1,r1) == get(l2,r2))   // 为什么pow(p,r-l+1)不行呢 ? 因为可能数太大了,可能溢出,pow返回的是一个double类型的数
       printf("Yes\n"); 
+    else
+      printf("No\n");
+  }
+
+  return 0;
+}*/
+
+
+#include <iostream>
+using namespace std;
+typedef unsigned long long ULL; 
+
+const int N = 1e5 + 10;
+int n,m;
+int p = 131;
+ULL a[N],pow[N]; // p存储字符串哈希,q存储需要的进位
+
+ULL cacl(int l,int r){
+  ULL res = a[r] - a[l-1] * pow[r-l+1];
+  return res;
+}
+
+int main(){
+  char str[N];
+  scanf("%d%d",&n,&m);
+  scanf("%s",str+1);
+
+  pow[0] = 1;
+  for(int i = 1;i <= n;i++){
+    a[i] = a[i-1] * p + str[i];
+    pow[i] = pow[i-1] * p;
+  }  
+
+  int l1,r1,l2,r2;
+  while(m--){
+    scanf("%d%d%d%d",&l1,&r1,&l2,&r2);
+    if(cacl(l1,r1) == cacl(l2,r2))
+      printf("Yes\n");
     else
       printf("No\n");
   }
