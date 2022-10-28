@@ -14,6 +14,7 @@ code segment
     mov ax,data
     mov ds,ax
     mov bx,0
+    ; 将要显示数字的第一行,下面的循环中要递增dh
     mov dh,8
 
     s:
